@@ -1,7 +1,14 @@
+using EmployeesMVCApp.Models;
+using EmployeesMVCApp.Repositories;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddDbContext<EmployeesContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("EmployeeMVCAppDB")));
+builder.Services.AddTransient<IEmployeesRepository, EmployeesRepository>();
 
 var app = builder.Build();
 
